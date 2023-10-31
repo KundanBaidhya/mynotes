@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "929453222891",
+    "project_id": "konan-my-notes-project",
+    "storage_bucket": "konan-my-notes-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929453222891:android:3e36cbd7b67a7cb96dc7ae",
+        "android_client_info": {
+          "package_name": "np.konancodes.mynotes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwnBDL5RUfnHRtF2A5ov9VSarVjdg2amo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

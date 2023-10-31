@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCwnBDL5RUfnHRtF2A5ov9VSarVjdg2amo',
-    appId: '1:929453222891:android:3e36cbd7b67a7cb96dc7ae',
-    messagingSenderId: '929453222891',
-    projectId: 'konan-my-notes-project',
-    storageBucket: 'konan-my-notes-project.appspot.com',
+    apiKey: 'AIzaSyAlF-rdiJenX6JSKtt6qWj7is4qyYDSxUE',
+    appId: '1:215778865228:android:7c8fa18b6bd79b9fde04e9',
+    messagingSenderId: '215778865228',
+    projectId: 'konan-my-notes-flutter-project',
+    storageBucket: 'konan-my-notes-flutter-project.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC7yS4HOv02_20F0hV67Le4GWi8p__eE-A',
-    appId: '1:929453222891:ios:fc34e86cdd30da386dc7ae',
-    messagingSenderId: '929453222891',
-    projectId: 'konan-my-notes-project',
-    storageBucket: 'konan-my-notes-project.appspot.com',
+    apiKey: 'AIzaSyBchA4NZntoDvmaJKQ0s29AIIo820XVxbc',
+    appId: '1:215778865228:ios:c5930d96cc7e1b04de04e9',
+    messagingSenderId: '215778865228',
+    projectId: 'konan-my-notes-flutter-project',
+    storageBucket: 'konan-my-notes-flutter-project.appspot.com',
     iosBundleId: 'np.konancodes.mynotes',
   );
 }

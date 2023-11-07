@@ -85,6 +85,17 @@ class _RegisterViewState extends State<RegisterView> {
 
             default:
              return const Text("Loading");
+             //general changes in code
+             //general changes in code
+             //general changes in code
+             //general changes in code
+             //general changes in code
+             //general changes in code
+             //general changes in code
+             //general changes in code
+             //general changes in code
+             //general changes in code
+             //general changes in code
               
           }
           

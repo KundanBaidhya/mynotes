@@ -36,47 +36,51 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-            children: [
-              TextField(
-                controller: _email,
-                decoration: const InputDecoration(hintText: "Enter your Email"),
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                enableSuggestions: false,
-        
-              ),
-              TextField(
-                controller: _password,
-                decoration: const InputDecoration(hintText: "Enter your Password"),
-                obscureText: true,
-                autocorrect: false,
-                enableSuggestions: false,
-              ),
-              TextButton(onPressed: () async{ //
-        
-              
-              final myEmail = _email.text;
-              final myPassword = _password.text;
-              try{
-              final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: myEmail, password: myPassword);
-              print(userCredential);
-              
-              }
-              on FirebaseAuthException catch(e){
-                print(e.code);
-              }
-              catch(e){
-                print("Something bad happened");
-                print(e.runtimeType);
-                print(e);
-              }
-              }, child: const Text("Login"),
-        ),
-        TextButton(onPressed: (){
-
-        }, child: Text("Not registered yet? Click here to register your account"))
-      ],
+    return Scaffold(
+      appBar: AppBar(title: const Text("Login"),),
+      body: Column(
+              children: [
+                TextField(
+                  controller: _email,
+                  decoration: const InputDecoration(hintText: "Enter your Email"),
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  enableSuggestions: false,
+          
+                ),
+                TextField(
+                  controller: _password,
+                  decoration: const InputDecoration(hintText: "Enter your Password"),
+                  obscureText: true,
+                  autocorrect: false,
+                  enableSuggestions: false,
+                ),
+                TextButton(onPressed: () async{ //
+          
+                
+                final myEmail = _email.text;
+                final myPassword = _password.text;
+                try{
+                final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: myEmail, password: myPassword);
+                print(userCredential);
+                
+                }
+                on FirebaseAuthException catch(e){
+                  print(e.code);
+                }
+                catch(e){
+                  print("Something bad happened");
+                  print(e.runtimeType);
+                  print(e);
+                }
+                }, child: const Text("Login"),
+          ),
+          TextButton(
+            onPressed: (){
+              Navigator.of(context).pushNamedAndRemoveUntil('/register', (route) => false);
+          }, child: Text("Not registered yet? Click here to register your account"))
+        ],
+      ),
     );
   }
 }

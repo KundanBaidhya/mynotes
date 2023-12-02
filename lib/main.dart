@@ -15,6 +15,10 @@ void main() {
         useMaterial3: true,
       ),
       home: const HomePage(),
+      routes: {
+        "/login" :(context) => const LoginView(),
+        "/register" :(context) => const RegisterView()
+      },
     ));
 }
 
@@ -34,13 +38,13 @@ class HomePage extends StatelessWidget {
         future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,),
         builder: (context, snapshot) {
           switch(snapshot.connectionState){
-
+      
             case ConnectionState.done:
-
+      
               final user = FirebaseAuth.instance.currentUser;
               
               print(user);
-
+      
               // if(user?.emailVerified==true){
               //   return Text("The user is verified");
               // }
@@ -48,9 +52,12 @@ class HomePage extends StatelessWidget {
                  return const LoginView();
                 
               //}
-
+      
             default:
-             return const Text("Loading");
+            return const SizedBox(
+              child: Center(
+                child: CircularProgressIndicator(),),
+            );
           }
         },
       )
@@ -58,25 +65,3 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class VerifyEmailView extends StatefulWidget {
-  const VerifyEmailView({super.key});
-
-  @override
-  State<VerifyEmailView> createState() => _VerifyEmailViewState();
-}
-
-class _VerifyEmailViewState extends State<VerifyEmailView> {
-  @override
-  Widget build(BuildContext context) {
-    return Column( children: [
-        const Text("Please click the button below to verify your email"),
-        TextButton(
-          onPressed: () async{
-          final user = FirebaseAuth.instance.currentUser;
-          print(user);
-          await user?.sendEmailVerification();
-        }, child: Text("Click me to get verified"))
-      ],
-      );
-  }
-}

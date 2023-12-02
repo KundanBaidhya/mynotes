@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynotes/firebase_options.dart';
+import 'package:mynotes/views/Verify_email_view.dart';
 import 'package:mynotes/views/login_view.dart';
 import 'package:mynotes/views/register_view.dart';
 
@@ -28,13 +29,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold( //inside the scaffold made a appbar and a body
-
-      appBar: AppBar( //gave the app bar a text to display
-        title: const Text("Home"),
-        ),
-
-      body: FutureBuilder(
+    return FutureBuilder(
         future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,),
         builder: (context, snapshot) {
           switch(snapshot.connectionState){
@@ -43,16 +38,26 @@ class HomePage extends StatelessWidget {
       
               final user = FirebaseAuth.instance.currentUser;
               
-              print(user);
+                if(user!=null){
+                  if(user.emailVerified){
+                    print("yay I'm verified");
+                  }
+                  else{
+                    return const VerifyEmailView();
+                  }
+                }
+                else{
+                  return const LoginView();
+                }
+
+              return Scaffold(
+                appBar: AppBar(title: const Text("Welcome"),),
+                body: const SizedBox(child: Center(
+                  child: Text("Done"),
+                ),),
+              );
       
-              // if(user?.emailVerified==true){
-              //   return Text("The user is verified");
-              // }
-              // else{
-                 return const LoginView();
-                
-              //}
-      
+
             default:
             return const SizedBox(
               child: Center(
@@ -60,8 +65,7 @@ class HomePage extends StatelessWidget {
             );
           }
         },
-      )
-    );
+      );
   }
 }
 

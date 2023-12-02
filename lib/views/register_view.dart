@@ -1,8 +1,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mynotes/firebase_options.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -36,20 +34,8 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold( //inside the scaffold made a appbar and a body
-
-      appBar: AppBar( //gave the app bar a text to display
-        title: const Text("Register"),
-        ),
-
-      body: FutureBuilder(
-        future: Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,),
-        builder: (context, snapshot) {
-          switch(snapshot.connectionState){
-
-            case ConnectionState.done:
-              return Column(
-            children: [
+    return Column(
+            children: [ 
               TextField(
                 controller: _email,
                 decoration: const InputDecoration(hintText: "Enter your Email"),
@@ -61,7 +47,7 @@ class _RegisterViewState extends State<RegisterView> {
               TextField(
                 controller: _password,
                 decoration: const InputDecoration(hintText: "Enter your Password"),
-                obscureText: true,
+                obscureText: true,  
                 autocorrect: false,
                 enableSuggestions: false,
               ),
@@ -82,13 +68,5 @@ class _RegisterViewState extends State<RegisterView> {
               }, child: const Text("Register"),),
             ],
           );
-
-            default:
-             return const Text("Loading");
-          }
-          
-        },
-      )
-    );
   }
 }

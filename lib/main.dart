@@ -50,12 +50,7 @@ class HomePage extends StatelessWidget {
                   return const LoginView();
                 }
 
-              return Scaffold(
-                appBar: AppBar(title: const Text("Welcome"),),
-                body: const SizedBox(child: Center(
-                  child: Text("Done"),
-                ),),
-              );
+              return NotesView();
       
 
             default:
@@ -69,3 +64,21 @@ class HomePage extends StatelessWidget {
   }
 }
 
+class NotesView extends StatefulWidget {
+  const NotesView({super.key});
+
+  @override
+  State<NotesView> createState() => _NotesViewState();
+}
+
+class _NotesViewState extends State<NotesView> {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(
+        title: Text("Notes"),
+        ),
+      body: const Text("hello world!"),
+    );
+  }
+}

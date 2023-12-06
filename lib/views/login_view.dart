@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:mynotes/Utilities/dialogs.dart';
 import 'package:mynotes/constants/routes.dart';
 
 
@@ -70,12 +71,14 @@ var logger = Logger();
                 
                 }
                 on FirebaseAuthException catch(e){
-                  logger.e(e.code);
+                  // ignore: use_build_context_synchronously
+                  await showErrorDialog(context, "Error : ${e.code}");
+                  logger.e("hey im firebase auth exception");
                 }
                 catch(e){
-                  logger.e("Something bad happened");
-                  logger.e(e.runtimeType);
-                  logger.e(e);
+                  // ignore: use_build_context_synchronously
+                  await showErrorDialog(context, "Error : ${e.toString()}");
+                  logger.e("hey im just your normal exception");
                 }
                 }, child: const Text("Login"),
           ),
@@ -88,3 +91,4 @@ var logger = Logger();
     );
   }
 }
+

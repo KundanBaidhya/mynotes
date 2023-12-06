@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:mynotes/Utilities/dialogs.dart';
 import 'package:mynotes/constants/routes.dart';
 
 class RegisterView extends StatefulWidget {
@@ -62,17 +63,27 @@ var logger = Logger();
                 final myPassword = _password.text;
     
                 try{
-                final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: myEmail, password: myPassword);
-                logger.e(userCredential);
+                await FirebaseAuth.instance.createUserWithEmailAndPassword(email: myEmail, password: myPassword);
+
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("User Registered Succesfully")));
+                final user = FirebaseAuth.instance.currentUser;
+                await user?.sendEmailVerification();
+
+                Navigator.of(context).pushNamed(emailVerificationRoute);
                 }
                 on FirebaseAuthException catch(e){
-                logger.e(e.code);
+                // ignore: use_build_context_synchronously
+                await showErrorDialog(context, "Error : ${e.code}");
+                }
+
+                catch(e){
+                await showErrorDialog(context, "Error : ${e.toString()}");
                 }
           
                 }, child: const Text("Register"),),
                 TextButton(onPressed: (){
                   Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
-                }, child : const Text("Already registered?"))
+                }, child : const Text("Already registered? Click here to login"))
               ],
             ),
     );

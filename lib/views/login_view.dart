@@ -60,28 +60,36 @@ var logger = Logger();
                 ),
                 TextButton(onPressed: () async{ //
           
-                
-                final myEmail = _email.text;
-                final myPassword = _password.text;
-                try{
-                final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: myEmail, password: myPassword);
-                // ignore: use_build_context_synchronously
-                Navigator.of(context).pushNamedAndRemoveUntil("/notes", (route) => false);
-                logger.d(userCredential);
-                
-                }
-                on FirebaseAuthException catch(e){
+                  final myEmail = _email.text;
+                  final myPassword = _password.text;
+                  try{
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(email: myEmail, password: myPassword);
+                  final user = FirebaseAuth.instance.currentUser;
                   // ignore: use_build_context_synchronously
-                  await showErrorDialog(context, "Error : ${e.code}");
-                  logger.e("hey im firebase auth exception");
-                }
-                catch(e){
-                  // ignore: use_build_context_synchronously
-                  await showErrorDialog(context, "Error : ${e.toString()}");
-                  logger.e("hey im just your normal exception");
-                }
+                  
+                  if(user?.emailVerified==true){
+                    Navigator.of(context).pushNamed("/notes");
+                  }
+                  else{
+                    await user?.sendEmailVerification();
+                    Navigator.of(context).pushNamed(emailVerificationRoute);
+                  }
+                  
+                  
+                  }
+                  on FirebaseAuthException catch(e){
+                    // ignore: use_build_context_synchronously
+                    await showErrorDialog(context, "Error : ${e.code}");
+                    
+                  }
+                  catch(e){
+                    // ignore: use_build_context_synchronously
+                    await showErrorDialog(context, "Error : ${e.toString()}");
+                    
+                  }
                 }, child: const Text("Login"),
           ),
+
           TextButton(
             onPressed: (){
               Navigator.of(context).pushNamedAndRemoveUntil(registerRoute, (route) => false);

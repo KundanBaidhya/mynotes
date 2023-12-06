@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 
 
@@ -31,7 +32,7 @@ class _LoginViewState extends State<LoginView> {
     super.dispose();
   }
 
-
+var logger = Logger();
 
   @override
   Widget build(BuildContext context) {
@@ -62,23 +63,25 @@ class _LoginViewState extends State<LoginView> {
                 final myPassword = _password.text;
                 try{
                 final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: myEmail, password: myPassword);
-                print(userCredential);
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).pushNamedAndRemoveUntil("/notes", (route) => false);
+                logger.d(userCredential);
                 
                 }
                 on FirebaseAuthException catch(e){
-                  print(e.code);
+                  logger.e(e.code);
                 }
                 catch(e){
-                  print("Something bad happened");
-                  print(e.runtimeType);
-                  print(e);
+                  logger.e("Something bad happened");
+                  logger.e(e.runtimeType);
+                  logger.e(e);
                 }
                 }, child: const Text("Login"),
           ),
           TextButton(
             onPressed: (){
               Navigator.of(context).pushNamedAndRemoveUntil('/register', (route) => false);
-          }, child: Text("Not registered yet? Click here to register your account"))
+          }, child: const Text("Not registered yet? Click here to register your account"))
         ],
       ),
     );

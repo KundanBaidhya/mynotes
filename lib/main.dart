@@ -19,7 +19,8 @@ void main() {
       home: const HomePage(),
       routes: {
         "/login" :(context) => const LoginView(),
-        "/register" :(context) => const RegisterView()
+        "/register" :(context) => const RegisterView(),
+        "/notes" :(context) => const NotesView()
       },
     ));
 }
@@ -41,7 +42,7 @@ class HomePage extends StatelessWidget {
               
                 if(user!=null){
                   if(user.emailVerified){
-                    print("yay I'm verified");
+                    logger.d("yay I'm verified");
                   }
                   else{
                     return const VerifyEmailView();
@@ -51,7 +52,7 @@ class HomePage extends StatelessWidget {
                   return const LoginView();
                 }
 
-              return NotesView();
+              return const NotesView();
       
 
             default:
@@ -98,12 +99,13 @@ class _NotesViewState extends State<NotesView> {
                   final shouldLogout = await showLogOutDialog(context);
                   if(shouldLogout){
                     await FirebaseAuth.instance.signOut();
+                    // ignore: use_build_context_synchronously
                     Navigator.of(context).pushNamedAndRemoveUntil("/login", (route) => false);
                   }
                   break;
 
                 case MenuAction.setting:
-                  // TODO: Handle this case.
+                  logger.e("No Settings for now shit");
               }
             },
             itemBuilder: (context){
